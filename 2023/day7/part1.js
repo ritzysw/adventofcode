@@ -42,23 +42,20 @@ class Hand {
         this.bet = bet
         var instances = {}
         hand.split("").forEach(a => instances[a] = (instances[a] || 0) + 1)
-        var sortedInstances = []
-        for (var a in instances)
-            sortedInstances.push([a, instances[a]])
-        sortedInstances.sort((a, b) => b[1] - a[1])
-        if (sortedInstances[0][1] == 5) {
+        instances = Object.entries(instances).sort((a, b) => b[1] - a[1])
+        if (instances[0][1] == 5) {
             this.type = HandTypes.FIVE
-        } else if (sortedInstances[0][1] == 4) {
+        } else if (instances[0][1] == 4) {
             this.type = HandTypes.FOUR
-        } else if (sortedInstances[0][1] == 3 && sortedInstances.length == 2) {
+        } else if (instances[0][1] == 3 && instances.length == 2) {
             this.type = HandTypes.FULL_HOUSE
-        } else if (sortedInstances[0][1] == 3 && sortedInstances.length == 3) {
+        } else if (instances[0][1] == 3 && instances.length == 3) {
             this.type = HandTypes.THREE
-        } else if (sortedInstances.length == 3 && sortedInstances[0][1] == 2 && sortedInstances[1][1] == 2) {
+        } else if (instances.length == 3 && instances[0][1] == 2 && instances[1][1] == 2) {
             this.type = HandTypes.TWO
-        } else if (sortedInstances.length == 4 && sortedInstances[0][1] == 2 && sortedInstances[1][1] == 1) {
+        } else if (instances.length == 4 && instances[0][1] == 2 && instances[1][1] == 1) {
             this.type = HandTypes.ONE
-        } else if (sortedInstances.length == 5 && sortedInstances[0][1] == 1) {
+        } else if (instances.length == 5 && instances[0][1] == 1) {
             this.type = HandTypes.HIGH
         }
         this.rank = -1
